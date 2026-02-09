@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "RobotoMono", sans-serif !important;
+}
+html {
+  height: 100% !important;
+}
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+@font-face {
+  font-family: "Poppins";
+  font-weight: 400;
+  src: url("../font/poppins/Poppins-Light.ttf") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 500;
+  src: url("../font/poppins/Poppins-Medium.ttf") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 600;
+  src: url("../font/poppins/Poppins-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Poppins";
+  font-weight: 700;
+  src: url("../font/poppins/Poppins-Bold.ttf") format("woff2");
+}
+
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 700;
+  src: url("../font/robotoMono/RobotoMono-Bold.ttf") format("woff2");
+}
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 400;
+  src: url("../font/robotoMono/RobotoMono-Regular.ttf") format("woff2");
+}
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 500;
+  src: url("../font/robotoMono/RobotoMono-Medium.ttf") format("woff2");
+}
+@font-face {
+  font-family: "RobotoMono";
+  font-weight: 600;
+  src: url("../font/robotoMono/RobotoMono-SemiBold.ttf") format("woff2");
+}
+
+.setFontRobotoMono {
+  font-family: "RobotoMono", sans-serif !important;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.infomon-mask {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: block;
+  background: rgba(0, 0, 0, 0.8);
+  transition: opacity var(--mask-animation-duration) ease,
+    display var(--mask-animation-duration) ease;
+}
+
+.infomon-mask-hide {
+  opacity: 0;
+}
+
+.infomon-mask-show {
+  opacity: 1;
+}
+
+@media (max-width: 1440px) {
+}
+
+.multi-line-ellipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+/* General Solution */
+.no-scrollbar {
+  /* For Webkit browsers */
+  -webkit-overflow-scrolling: touch; /* Keep native scrolling */
+  overflow-y: scroll; /* Allow scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.notistack-Snackbar {
+  min-width: min-content !important;
+}
+.notistack-Snackbar > div {
+  min-width: min-content !important;
+}
+.gameItem {
+  animation: rotate 4s linear infinite;
+  transform-origin: left top;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.meteor1 {
+  position: absolute;
+  width: 100px; /* Meteor length */
+  height: 2px; /* Meteor thickness */
+  background: linear-gradient(to left, transparent, #08fdee);
+  animation: meteor1 3s linear infinite;
+  opacity: 0;
+  top: 30px;
+  z-index: 0;
+}
+
+@keyframes meteor1 {
+  0% {
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+.meteor2 {
+  position: absolute;
+  width: 100px; /* Meteor length */
+  height: 2px; /* Meteor thickness */
+  background: linear-gradient(to right, transparent, #08fdee);
+  animation: meteor2 3s linear infinite;
+  opacity: 0;
+  top: 90px;
+}
+
+@keyframes meteor2 {
+  0% {
+    transform: translateX(-800px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+.symbol {
+  display: none !important;
+}
+
+.klinecharts-pro-period-bar .tools:last-child,
+.klinecharts-pro-period-bar .tools:nth-last-child(2),
+.klinecharts-pro-period-bar .tools:nth-last-child(4),
+.klinecharts-pro-period-bar .tools:nth-last-child(3) {
+  display: none !important;
+}
+
+.buttonDisabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120%;
+  height: 120%;
+  background: rgba(0, 0, 0, 0.4); /* Black semi-transparent mask */
+  pointer-events: none; /* Allow clicks to pass through to button */
+}
+
+.new-game-container * {
+  color: #000 !important;
+}
+
+#webpack-dev-server-client-overlay {
+  display: none !important;
+}

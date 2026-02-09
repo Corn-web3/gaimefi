@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="game"></div>
+    <script>
+        class PlantVsZombie extends Phaser.Scene {
+    constructor() {
+        super({ key: 'PlantVsZombie' });
+    }
+preload() {
+    // This method should be empty or contain asset loading
+}
+create() {
+  
+    // Game variables initialization
+    this.score = 0;
+    this.gameOver = false;
+    this.plantCost = 50;
+    this.sunPoints = 100;
+    this.level = 1;
+    this.zombieSpeed = 1;
+    this.zombieSpawnRate = 3000;
+    // Create UI elements
+    this.events.on('resume', () => {
+        this.zombieSpeed += 0.2;
+        this.zombieSpawnRate = Math.max(1000, this.zombieSpawnRate - 300);
+        this.level++;
+    });
+
+    create() {
+        // Create background
+        this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0x90EE90).setOrigin(0);
+
+        // Create grid for planting (5x3)
+        this.grid = [];
+        for(let i = 0; i < 5; i++) {
+            this.grid[i] = [];
+            for(let j = 0; j < 3; j++) {
+                let cell = this.add.rectangle(100 + i * 120, 100 + j * 120, 100, 100, 0x654321, 0.3)
+                    .setInteractive()
+                    .on('pointerdown', () => this.plantFlower(i, j));
+                this.grid[i][j] = {
+                    occupied: false,
+                    cell: cell
+                };
+            }
+        }
+
+        // Score text
+        this.scoreText = this.add.text(16, 16, 'Sun Points: 100', { fontSize: '32px', fill: '#000' });
+
+        // Game over text
+        this.gameOverText = this.add.text(window.innerWidth/2, window.innerHeight/2, 'Game Over', 
+            { fontSize: '64px', fill: '#000' });
+        this.gameOverText.setOrigin(0.5);
+        this.gameOverText.visible = false;
+
+        // Restart button
+        this.restartButton = this.add.text(window.innerWidth/2, window.innerHeight/2 + 80, '? Restart', 
+            { fontSize: '32px', fill: '#000' })
+            .setInteractive()
+            .on('pointerdown', () => this.restartGame());
+        this.restartButton.setOrigin(0.5);
+        this.restartButton.visible = false;
+
+        // Create zombies array
+        this.zombies = this.add.group();
+        
+        // Create plants array
+        this.plants = this.add.group();
+
+        // Spawn zombies periodically
+        this.time.addEvent({
+            delay: this.zombieSpawnRate,
+            callback: this.spawnZombie,
+            callbackScope: this,
+            loop: true
+        });
+
+        // Generate sun points periodically
+        this.time.addEvent({
+            delay: 5000,
+            callback: this.generateSunPoints,
+            callbackScope: this,
+            loop: true
+        });
+    }
+
+    update() {
+        if (this.gameOver) return;
+
+        // Update zombies movement
+        this.zombies.children.iterate((zombie) => {
+            if (zombie) {
+                zombie.x -= this.zombieSpeed;
+                if (zombie.x < 0) {
+                    this.gameOver = true;
+                    this.gameOverText.visible = true;
+                    this.restartButton.visible = true;
+                }
+            }
+        });
+
+        // Check for collisions between plants and zombies
+        this.physics.overlap(this.plants, this.zombies, this.plantZombieCollision, null, this);
+    }
+
+    plantFlower(i, j) {
+        if (!this.grid[i][j].occupied && this.sunPoints >= this.plantCost) {
+            this.sunPoints -= this.plantCost;
+            this.scoreText.setText('Sun Points: ' + this.sunPoints);
+            
+            // Create plant
+            let plant = this.add.text(100 + i * 120, 100 + j * 120, '?', { fontSize: '40px' });
+            plant.setOrigin(0.5);
+            this.physics.add.existing(plant, true);
+            this.plants.add(plant);
+            
+            this.grid[i][j].occupied = true;
+        }
+    }
+
+    spawnZombie() {
+        if (this.gameOver) return;
+        
+        let randomLane = Phaser.Math.Between(0, 2);
+        let zombie = this.add.text(window.innerWidth, 100 + randomLane * 120, '?', { fontSize: '40px' });
+        zombie.setOrigin(0.5);
+        this.physics.add.existing(zombie);
+        this.zombies.add(zombie);
+    }
+
+    generateSunPoints() {
+        if (!this.gameOver) {
+            this.sunPoints += 25;
+            this.scoreText.setText('Sun Points: ' + this.sunPoints);
+        }
+    }
+plantZombieCollision(plant, zombie) {
+    if (!plant.health) plant.health = 3;
+    if (!zombie.health) zombie.health = 2;
+    plant.health--;
+    zombie.health--;
+    if (plant.health <= 0) {
+        plant.destroy();
+        this.grid[Math.floor((plant.x - 100) / 120)][Math.floor((plant.y - 100) / 120)].occupied = false;
+    }
+    if (zombie.health <= 0) {
+        zombie.destroy();
+        this.score += 10;
+        this.sunPoints += 15;
+        this.scoreText.setText('Sun Points: ' + this.sunPoints);
+    }
+}
+
+    restartGame() {
+        this.scene.restart();
+    }
+  }
+}
+}
+
+const config = {
+    type: Phaser.AUTO,
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        parent: 'game',
+        width: '100%',
+        height: '100%'
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+    },
+    scene: PlantVsZombie
+};
+
+const game = new Phaser.Game(config);
+    </script>
+</body>
+</html>
