@@ -9,8 +9,7 @@ import ForgeGame from "@/views/ForgeGame";
 import Demo from "@/views/Demo";
 import Demo2 from "@/views/Demo2";
 import TradingComponent from "@/views/SonicTest/index";
-import Tldraw from "@/views/Tldraw";
-import Tldraw2 from "@/views/Tldraw2";
+
 import SonicTest from "@/views/SonicTest/index";
 import VideoToCanvas from "@/views/VidoeToCanvas";
 
