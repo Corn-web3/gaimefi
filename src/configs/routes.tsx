@@ -103,15 +103,7 @@ const router = [
       </PublicLayout>
     ),
   },
-  // {
-  //   path: "/tldraw2",
-  //   type: "public",
-  //   component: (
-  //     <PublicLayout>
-  //       <Tldraw2 />
-  //     </PublicLayout>
-  //   ),
-  // },
+
   // {
   //   path: "/demo2",
   //   type: "public",

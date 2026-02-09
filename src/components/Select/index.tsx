@@ -4,7 +4,6 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import MuiSelect from "@mui/material/Select";
-import { stopEventPropagation } from "tldraw";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -104,99 +103,6 @@ export default function Select({
                 },
                 "&.Mui-selected:hover": {
                   bgcolor: "#232B2B80",
-                },
-              }}
-              key={opt.name}
-              value={opt.name}
-              //   style={getStyles(opt.name, personName, theme)}
-            >
-              {opt.label}
-            </MenuItem>
-          ))}
-        </MuiSelect>
-      </FormControl>
-    </div>
-  );
-}
-
-export function TlSelect({
-  options = [],
-  placeholder,
-  onChange,
-  name,
-  ...props
-}: {
-  options: any;
-  placeholder: string;
-  onChange: any;
-  name: any;
-}) {
-  const handleChange = (event: any) => {
-    const {
-      target: { value },
-    } = event;
-    if (name) {
-      onChange({ target: { name, value } });
-    } else {
-      onChange(value);
-    }
-    // setPersonName(
-    //   // On autofill we get a stringified value.
-    //   typeof value === "string" ? value.split(",") : value
-    // );
-  };
-
-  return (
-    <div onPointerDown={(e) => stopEventPropagation(e)}>
-      <FormControl sx={{ m: 1, width: "100%", mt: 3 }} className="!m-0">
-        <MuiSelect
-          {...props}
-          sx={{
-            height: "42px",
-            borderRadius: "12px",
-            "&": {
-              fontSize: "14px",
-              color: "white",
-              fontFamily: "RobotoMono",
-              borderRadius: "4px", // Custom border radius
-              "&:hover fieldset": {
-                borderColor: "#09FFF0 !important", // Border color on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#09FFF0 !important", // Border color on focus
-              },
-            },
-          }}
-          displayEmpty
-          // value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput />}
-          renderValue={(selected: any) => {
-            if (!selected) {
-              return <em className="!text-[red]">{placeholder}</em>;
-            }
-
-            return options.find((item) => item.name === selected)?.label;
-          }}
-          MenuProps={MenuProps}
-          inputProps={{ "aria-label": "Without label" }}
-        >
-          {/* <MenuItem disabled value="">
-            <em>{placeholder}</em>
-          </MenuItem> */}
-          {options.map((opt) => (
-            <MenuItem
-              sx={{
-                height: "42px",
-                "&:hover": {
-                  bgcolor: "#ccc",
-                },
-                "&.Mui-selected": {
-                  //   bgcolor: "#232B2B80",
-                  // color: "#09FFF0",
-                },
-                "&.Mui-selected:hover": {
-                  bgcolor: "#ccc",
                 },
               }}
               key={opt.name}

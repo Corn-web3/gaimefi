@@ -77,7 +77,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         focus:outline-none 
         focus:ring-0
                   `,
-          !showIcon && "!pl-4"
+          !showIcon && "!pl-4",
         )}
         placeholder={placeholder}
         {...props}
@@ -184,103 +184,6 @@ export const TextField = ({
             backgroundColor: "#FFFFFF0D",
             "& fieldset": {
               borderColor: "#FFFFFF1A", // Default border color
-            },
-            "&:hover fieldset": {
-              borderColor: "#09FFF0", // Border color on hover
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#09FFF0", // Border color on focus
-            },
-            ...rootSx,
-          },
-          ...sx,
-        }}
-      />
-    </div>
-  );
-};
-
-export const TlTextField = ({
-  height = "30px",
-  errorMessage = "",
-  startAdornment,
-  endAdornment,
-  max,
-  onChange,
-  toUppercase = false,
-  maxLength,
-  minLength,
-  showCount = false,
-  type,
-  sx,
-  rootSx,
-  inputSx,
-  ...props
-}: any) => {
-  const _onChange = (e: any) => {
-    let value = e.target.value;
-    if (type === "number") {
-      if (!isNumber(value)) {
-        return;
-      }
-      if (!/^\d*\.?\d{0,6}$/.test(value)) {
-        return;
-      }
-    }
-    if (max) {
-      if (Number(e.target.value) > max) {
-        e.target.value = max;
-        value = max;
-      }
-    }
-    if (toUppercase) {
-      if (!/^[a-zA-Z]+$/.test(value) && value.length > 0) {
-        return;
-      }
-
-      e.target.value = value.toUpperCase();
-    }
-    onChange?.(e);
-  };
-  return (
-    <div>
-      <MuiTextField
-        onChange={_onChange}
-        variant="outlined"
-        {...props}
-        helperText={
-          showCount && (
-            <div className="text-[12px] text-[#cccc] absolute right-[6px] bottom-[-22px]">
-              {props.value?.length}/{maxLength}
-            </div>
-          )
-        }
-        fullWidth
-        inputProps={{
-          autoComplete: "off",
-          maxLength,
-        }}
-        slotProps={{
-          input: {
-            ...(startAdornment && { startAdornment: startAdornment }),
-            ...(endAdornment && { endAdornment: endAdornment }),
-          },
-        }}
-        sx={{
-          "& .MuiOutlinedInput-root input": {
-            height: "100%",
-            padding: startAdornment ? "0 12px 0 2px" : "0 12px",
-            ...inputSx,
-          },
-          "& .MuiOutlinedInput-root": {
-            height: height,
-            fontSize: "12px",
-            color: "white",
-            fontFamily: "RobotoMono",
-            borderRadius: "4px", // Custom border radius
-            backgroundColor: "#FFFFFF0D",
-            "& fieldset": {
-              borderColor: "#ccc", // Default border color
             },
             "&:hover fieldset": {
               borderColor: "#09FFF0", // Border color on hover

@@ -88,14 +88,4 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.tl-background {
-  background: #efefef !important;
-}
 
-.tl-text-shape-label__inner {
-  width: fit-content !important;
-  max-height: none !important;
-  max-width: none !important;
-  /* height: fit-content !important; */
-  /* padding: 12px 16px; */
-}

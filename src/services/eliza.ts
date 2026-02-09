@@ -1,6 +1,6 @@
 import { delay } from "@/utils/delay";
 
-const X_Api_Key = process.env.REACT_APP_FLEEK_API_KEY;
+const X_Api_Key = process.env.REACT_APP_FLEEK_API_KEY || "";
 const PROJECT_ID = process.env.REACT_APP_FLEEK_PROJECT_ID;
 
 const post = async (url: string, data: any = {}) => {

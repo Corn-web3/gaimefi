@@ -6,7 +6,6 @@ import { uploadFile } from "@/services/gameService";
 import { toast } from "../Toast";
 import { Loading } from "../Loading";
 import CloseImg from "@/assets/modal/close.png";
-import { stopEventPropagation } from "tldraw";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB in bytes
 
@@ -127,87 +126,5 @@ export const CrosswiseUpfile = ({ onChange }: CrosswiseUpfileProps) => {
         <input ref={ref} type="file" hidden onChange={onUpfile} />
       </div>
     </Card>
-  );
-};
-
-export const TlUpfile = ({ onChange, name, className, value }) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [url, setUrl] = useState(value ?? "");
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const onUpfile = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      return;
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      toast.error("File size cannot exceed 2MB");
-      return;
-    }
-
-    const formData = new FormData();
-    // Add file
-    formData.append("file", file);
-    setLoading(true);
-    const res = await uploadFile(formData);
-    setLoading(false);
-    setUrl(res?.url);
-    if (name) {
-      onChange({ target: { name, value: res?.url } });
-    } else {
-      onChange(res?.url);
-    }
-  };
-  return (
-    <>
-      {loading && <Loading></Loading>}
-      {!loading &&
-        (url ? (
-          <div
-            className="relative w-fit"
-            onPointerDown={(e) => stopEventPropagation(e)}
-          >
-            <img
-              onClick={() => ref.current?.click()}
-              src={url}
-              alt="file"
-              className="w-[90px] h-[90px] object-cover cursor-pointer"
-            ></img>
-            <img
-              src={CloseImg}
-              alt="close"
-              className="w-[16px] h-[16px] cursor-pointer absolute top-[0px] right-[0px] translate-x-[50%] translate-y-[-50%] bg-[#ffffff33] rounded-full"
-              onClick={() => setUrl("")}
-            ></img>
-          </div>
-        ) : (
-          <div
-            className="flex justify-center items-center h-[90px] cursor-pointer border-[1px] border-dashed border-[#bbb] rounded-[12px]"
-            onClick={() => ref.current?.click()}
-            onPointerDown={(e) => stopEventPropagation(e)}
-          >
-            <div className="flex flex-col items-center">
-              <img
-                className="w-[16px] h-[16px] mb-[10px]"
-                src={AddImg}
-                alt="add"
-              />
-              <div className="text-[14px] text-[#fff] opacity-40 leading-[18px]">
-                Choose File
-              </div>
-              <div className="text-[12px] text-[#fff] opacity-40 leading-[18px]">
-                Upload game cover(PNG/JPG, max 2MB)
-              </div>
-            </div>
-          </div>
-        ))}
-      <input
-        ref={ref}
-        accept=".png,.jpg"
-        type="file"
-        hidden
-        onChange={onUpfile}
-      />
-    </>
   );
 };
