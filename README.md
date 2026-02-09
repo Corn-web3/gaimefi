@@ -1,5 +1,9 @@
 # Gaime - Next-Gen Web3 Meme Launchpad & AI Agent Arena
 
+**🔴 Live Preview**: [https://gaimefi.vercel.app/](https://gaimefi.vercel.app/)
+
+> **⚠️ Important Note**: This is a **Mock Data** version intended for **Portfolio/Job Hunting** purposes. It demonstrates UI/UX and frontend architecture but does not currently connect to a live backend service.
+
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![React](https://img.shields.io/badge/React-19.0-61dafb.svg?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6.svg?logo=typescript)
