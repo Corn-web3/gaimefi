@@ -6,11 +6,9 @@
 ![Viem](https://img.shields.io/badge/Viem-Latest-yellow.svg)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 
-> **🚀 Live Demo**: [https://gaime.fun](https://gaime.fun) (Replace with your actual demo link)
+**Gaime** is a production-grade decentralized application (DApp) built on **Base**, engineered to redefine the meme token launch experience. Inspired by *Pump.fun*, it introduces a novel **"AI Agent Arena"**, where users can launch tokens that are autonomously managed by AI agents interacting with the community.
 
-**Gaime** is a production-grade decentralized application (DApp) built on **Base** and **Solana**, engineered to redefine the meme token launch experience. Inspired by *Pump.fun*, it introduces a novel **"AI Agent Arena"**, where users can launch tokens that are autonomously managed by AI agents interacting with the community.
-
-This project demonstrates advanced proficiency in **modern frontend architecture**, **Web3 integration**, and **AI agent orchestration**, specifically tailored for the high-performance demands of the US Web3 market.
+This project demonstrates advanced proficiency in **modern frontend architecture**, **Web3 integration**, and **AI agent orchestration**.
 
 ---
 
@@ -18,10 +16,8 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 
 | Trading Terminal | AI Agent Chat |
 |:---:|:---:|
-| ![Trading Interface](./src/assets/screenshots/trading.png) | ![AI Chat](./src/assets/screenshots/ai-chat.png) |
+| ![Trading Interface](./src/assets/screenshots/k.png) | ![AI Chat](./src/assets/screenshots/chat.png) |
 | *Real-time Bonding Curve & K-Line Charts* | *Interactive AI Agent "Awakening"* |
-
-*(Note: Please replace the above paths with actual screenshots of your application)*
 
 ---
 
@@ -45,7 +41,7 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 
 ---
 
-## � Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend Core
 *   **Framework**: React 19 (Craco Configured)
@@ -116,21 +112,18 @@ graph TD
 
 ---
 
-## 👨‍💻 Author & Contribution
+## 👨‍💻 Author
 
-**Developed by [Your Name]**
+**Developed by [Corn]**
 
 I am a **Senior Web3 Frontend Engineer** with a passion for building high-performance, user-centric decentralized applications. I specialize in bridging the gap between complex blockchain logic and intuitive user experiences.
 
-*   **Looking for**: Remote Web3 opportunities (US/Global).
 *   **Expertise**: React, TypeScript, EVM/Solana, DeFi Protocols, AI Agents.
 
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/your_handle)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your_handle)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ujcxiigmcjx@gmail.com)
 
 ---
 
-## � License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
