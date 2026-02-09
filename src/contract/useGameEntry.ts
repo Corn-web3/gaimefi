@@ -28,6 +28,8 @@ import { WALLET_TOAST_TEXT } from "@/components/Toast/text";
 import { ROUTER_ABI } from "./abi/v2-abi";
 import { useNavigate } from "react-router-dom";
 
+const USE_MOCK = true;
+
 export const useGameEntry = ({ sellTokenAddress }: any = {}) => {
   const navigate = useNavigate();
   const { handleApprove, approveSuccess, allowance } = useGaimeToken();
@@ -54,6 +56,25 @@ export const useGameEntry = ({ sellTokenAddress }: any = {}) => {
   };
 
   const handleLaunch = async (values: any) => {
+    if (USE_MOCK) {
+      walletToast.loading({
+        title: WALLET_TOAST_TEXT.launchLoading,
+        message: WALLET_TOAST_TEXT.launchLoadingContent,
+        showTx: false,
+      });
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      walletToast.success({
+        title: WALLET_TOAST_TEXT.launchSuccess,
+        message: WALLET_TOAST_TEXT.launchSuccessContent,
+      });
+
+      // Mock Address from coin.ts MOCK_GAME_DETAIL
+      navigate(`/coin/0x1234567890123456789012345678901234567890`);
+      return;
+    }
+
     let args = [
       values.name,
       values.ticker,

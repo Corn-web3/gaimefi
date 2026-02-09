@@ -10,10 +10,12 @@ import { ERC20_ABI } from "./abi/erc20-abi";
 import { waitForTransactionReceipt } from "@wagmi/core";
 import { imEvent } from "@/utils/ImEvent";
 import { wagmiConfig } from "@/config/wagmiConfig";
-import { formatEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import { walletToast } from "@/components/Toast/WalletToast";
 import { WALLET_TOAST_TEXT } from "@/components/Toast/text";
 import { useEffect } from "react";
+
+const USE_MOCK = true; // Enable mock mode
 
 export const useGaimeToken = () => {
   const { address } = useAccount();
@@ -74,6 +76,12 @@ export const useGaimeToken = () => {
   });
 
   const handleApprove = async () => {
+    if (USE_MOCK) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      imEvent.trigger("gaime-approve-success");
+      return true;
+    }
+
     try {
       const approveTx = await approve({
         address: GAME_TOKEN_ADDRESS,
@@ -114,6 +122,17 @@ export const useGaimeToken = () => {
     }
     return true;
   };
+
+  if (USE_MOCK) {
+    return {
+      balance: parseEther("1000000"), // Mock balance: 1,000,000 GAIME
+      handleApprove,
+      allowance: parseEther("1000000000"), // Mock infinite allowance
+      refetch: () => {},
+      approveSuccess: true,
+    };
+  }
+
   return {
     balance: balance ?? 0,
     handleApprove,

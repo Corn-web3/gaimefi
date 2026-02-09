@@ -64,7 +64,8 @@ export const config = [
         message: "Description must be 1-500 characters",
       },
     ],
-    placeholder: "Describe your game in detail:gameplay,features,story...(1-500 characters)",
+    placeholder:
+      "Describe your game in detail:gameplay,features,story...(1-500 characters)",
     tooltip:
       "Your description is the spell that brings your game to life! Be creative - our Agent will transform your words into playable magic.",
     labelExtra: () => {
@@ -74,7 +75,15 @@ export const config = [
       return <Link onClick={onClick}>Example</Link>;
     },
     component: (props) => (
-      <TextField height="100px" multiline rows={4} showCount maxLength={500} minLength={50} {...props}></TextField>
+      <TextField
+        height="100px"
+        multiline
+        rows={4}
+        showCount
+        maxLength={500}
+        minLength={50}
+        {...props}
+      ></TextField>
     ),
   },
   {
@@ -153,24 +162,24 @@ export default function ForgeGame() {
       game_id: res?.id,
       game_name: formValues.name,
     });
-    return res?.id
+    return res?.id;
   };
 
-
-  // useEffect(() => {
-  //   setFormValues({
-  //     name: "Cosmic Quest",
-  //     ticker: "CMSQ",
-  //     description:
-  //       "An epic space exploration game where players build interstellar empires, trade resources, and battle alien civilizations across a procedurally generated galaxy.",
-  //     gameType: '3D',
-  //     coverImageUrl: null,
-  //     twitterLink: "https://twitter.com/cosmicquest",
-  //     telegramLink: "https://t.me/cosmicquestofficial",
-  //     discordLink: "https://discord.gg/cosmicquest",
-  //     websiteLink: "https://www.cosmicquestgame.com",
-  //   });
-  // }, []);
+  useEffect(() => {
+    setFormValues({
+      name: "Cosmic Quest",
+      ticker: "CMSQ",
+      description:
+        "An epic space exploration game where players build interstellar empires, trade resources, and battle alien civilizations across a procedurally generated galaxy.",
+      gameType: "3D",
+      coverImageUrl:
+        "https://api.dicebear.com/7.x/pixel-art/svg?seed=CosmicQuest",
+      twitterLink: "https://twitter.com/cosmicquest",
+      telegramLink: "https://t.me/cosmicquestofficial",
+      discordLink: "https://discord.gg/cosmicquest",
+      websiteLink: "https://www.cosmicquestgame.com",
+    });
+  }, []);
 
   const getConfigItem = (name: string) => {
     return {

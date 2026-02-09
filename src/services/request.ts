@@ -2,6 +2,9 @@ import { toast } from "@/components/Toast";
 import { useStore } from "@/stores";
 import { imEvent } from "@/utils/ImEvent";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
+import { mockRequest } from "@/mock";
+
+const USE_MOCK = true; // Enable mock mode
 
 const httpUrl = process.env.REACT_APP_API_URL;
 const axioBackEnd = axios.create({
@@ -39,6 +42,21 @@ const handleError = (errorMsg: any) => {
 };
 
 const get = async (url: string, options?: any): Promise<any> => {
+  if (USE_MOCK) {
+    const res = await mockRequest({
+      url,
+      method: "get",
+      params: options?.params,
+    });
+    if (res.status === 1) {
+      if (res.extra && Object.keys(res.extra).length > 0) {
+        return res;
+      }
+      return res.data;
+    }
+    return Promise.reject(new Error(res.msg || "Mock Error"));
+  }
+
   return await axioBackEnd
     .get(url, options)
     .then((response) => {
@@ -55,6 +73,19 @@ const post = async (
   data: object = {},
   options?: any
 ): Promise<any> => {
+  if (USE_MOCK) {
+    const res = await mockRequest({
+      url,
+      method: "post",
+      data,
+      params: options?.params,
+    });
+    if (res.status === 1) {
+      return res.data;
+    }
+    return Promise.reject(new Error(res.msg || "Mock Error"));
+  }
+
   return await axioBackEnd
     .post(url, wrapData(data), options)
     .then((response) => {

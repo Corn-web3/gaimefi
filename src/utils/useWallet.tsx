@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   usePrivy,
   useSignMessage as usePrivySignMessage,
@@ -10,11 +11,15 @@ import { getChallenge, userLogin, userLogout } from "@/services/userService";
 import { useEffect } from "react";
 import CryptoJS from "crypto-js";
 import { useLoginStore } from "@/stores/useLogin";
+import { useStore } from "@/stores";
 import { imEvent, useEvent } from "./ImEvent";
 import { base } from "viem/chains";
 import { chain, wagmiConfig } from "@/config/wagmiConfig";
 import { toast } from "@/components/Toast";
 import { SiweMessage } from "siwe";
+
+const USE_MOCK = true;
+const MOCK_ADDRESS = "0x1234567890123456789012345678901234567890";
 
 // Generate random nonce
 const generateNonce = () => {
@@ -42,12 +47,29 @@ This does not initiate a transaction or cost any fees.`,
 };
 
 export const useWallet = () => {
-  const { user, login, logout: logoutPrivy } = usePrivy();
+  const { user: privyUser, login, logout: logoutPrivy } = usePrivy();
+  const { user: storeUser } = useStore();
+  const [mockConnected, setMockConnected] = useState(false);
 
-  const isEmailLogin = !!user;
+  // Check localStorage for mock connection persistence or existing store session
+  useEffect(() => {
+    if (USE_MOCK) {
+      if (localStorage.getItem("mock_connected") === "true") {
+        setMockConnected(true);
+      }
+    }
+  }, []);
+
+  const isEmailLogin = !!privyUser;
 
   // const isEmailLogin = false;
-  const { address, isDisconnected } = useAccount();
+  const { address: wagmiAddress, isDisconnected } = useAccount();
+
+  // In Mock mode, prefer store user address, then local mock state, then wagmi
+  const address = USE_MOCK
+    ? storeUser?.address || (mockConnected ? MOCK_ADDRESS : undefined)
+    : wagmiAddress;
+
   // const { disconnect, connectors,disconnectAsync } = useDisconnect();
   const { signMessage } = useSignMessage();
   const { signMessage: signMessagePrivy } = usePrivySignMessage({
@@ -68,11 +90,22 @@ export const useWallet = () => {
   });
 
   const getToken = async (_address: any) => {
+    if (USE_MOCK) return; // Skip in mock
     const challenge = await getChallenge({ address: _address });
     loginSignMessage(_address);
   };
 
   const loginOut = async (showToast = true) => {
+    if (USE_MOCK) {
+      setMockConnected(false);
+      localStorage.removeItem("mock_connected");
+      useStore.getState().reset(); // Reset global store
+      if (showToast) {
+        toast.success("Logout success (Mock)");
+      }
+      return;
+    }
+
     logoutPrivy();
     disconnect(wagmiConfig);
     (window as any)?.ethereum?.disconnect?.();
@@ -96,6 +129,23 @@ export const useWallet = () => {
   };
 
   const loginSignMessage = async (_address) => {
+    if (USE_MOCK) {
+      // Mock login process
+      console.log("[Mock] Logging in...");
+
+      // Update Global Store
+      useStore.getState().setToken("mock-token");
+      useStore.getState().setUser({
+        address: _address,
+        id: "mock-user-id",
+        username: "Mock User",
+        wallet: { address: _address },
+      });
+
+      imEvent.trigger("onSettled");
+      return;
+    }
+
     const msg = getSignMessage(address);
     const onSuccess = async (signature) => {
       await userLogin({
@@ -125,6 +175,26 @@ export const useWallet = () => {
   };
 
   const connectWallet = (type: "metamask" | "coinbase" | "okx") => {
+    if (USE_MOCK) {
+      // Simulate connection delay
+      setTimeout(() => {
+        setMockConnected(true);
+        localStorage.setItem("mock_connected", "true");
+        imEvent.trigger("onConnect");
+
+        // Trigger getToken logic simulation -> which triggers loginSignMessage
+        // In real flow, connect success triggers getToken.
+        // Here we simulate the sequence manually.
+
+        // Wait a bit then auto-trigger sign message step or let user click?
+        // Real flow: LoginModal shows "Sign message" button after connection.
+        // User clicks it -> loginSignMessage() called.
+        // So we just need to ensure address is available (mockConnected=true does that)
+        // and LoginModal will see address and switch to "sign" view.
+      }, 500);
+      return;
+    }
+
     const IdMap = {
       metamask: metaMask(),
       coinbase: coinbaseWallet(),
@@ -151,7 +221,7 @@ export const useWallet = () => {
 
   return {
     login,
-    address: user?.wallet?.address ?? address,
+    address: privyUser?.wallet?.address ?? address,
     loginOut,
     isEmailLogin,
     signMessage: _signMessage,

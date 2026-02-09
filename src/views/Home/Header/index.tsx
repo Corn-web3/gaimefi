@@ -41,7 +41,8 @@ const Header = () => {
   };
 
   const { user } = useStore();
-  const { address } = useAccount();
+  // const { address } = useAccount();
+  const { address } = useWallet();
   const userAddress = user?.address;
   const { sonicAddress } = useStore.getState();
 
@@ -136,7 +137,7 @@ const Header = () => {
             </div>
           )}
 
-          <div className="">
+          <div className="hidden">
             <CustomSelect
               className="!w-[100px] !h-[42px] !rounded-[12px] !text-[14px] !font-medium !border-none !px-[10px]"
               options={options}
@@ -152,8 +153,7 @@ const Header = () => {
               <div
                 className=""
                 style={{
-                  display:
-                    currentSelectChainType === "Sonic" ? "block" : "none",
+                  display: "none",
                 }}
               >
                 <SonicTest></SonicTest>
@@ -162,7 +162,7 @@ const Header = () => {
               <div
                 className=""
                 style={{
-                  display: currentSelectChainType === "Base" ? "block" : "none",
+                  display: "block",
                 }}
               >
                 <img
@@ -174,7 +174,7 @@ const Header = () => {
               </div>
             </>
           )}
-          <img
+          {/* <img
             src={xIcon}
             className="w-[42px] h-[42px] cursor-pointer ml-[25px]"
             onClick={() => {
@@ -200,7 +200,7 @@ const Header = () => {
               );
             }}
             alt=""
-          />
+          /> */}
         </div>
       </div>
 

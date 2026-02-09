@@ -18,9 +18,7 @@ import { useGameEntry } from "@/contract/useGameEntry";
 import { imEvent, useEvent } from "@/utils/ImEvent";
 import { useWallet } from "@/utils/useWallet";
 import { gotoBuyToken, NeedToken } from "@/components/NeedToken";
-import {
-  VoteNeedToken,
-} from "@/components/NeedToken/VoteNeedToken";
+import { VoteNeedToken } from "@/components/NeedToken/VoteNeedToken";
 import { trackEvent } from "@/utils/trackEvent";
 interface GamePlayProps {
   gameDetail: any;
@@ -174,7 +172,16 @@ const GamePlay = (props: GamePlayProps) => {
     <div className="w-full h-[765px] bg-[#0f1515] rounded-[16px]  flex items-center flex-col p-[24px] mt-[16px] relative ">
       <Tab tabs={getTabs()} activeTab={activeTab} onChange={onChange} />
 
-      <div className="absolute right-[24px] top-[15px]">
+      <div className="absolute right-[24px] top-[15px] flex items-center">
+        <ForgeButton
+          className="!w-[80px] !h-[30px] !rounded-[8px] !text-[12px] !font-medium mr-[8px]"
+          onClick={() => {
+            navigate(`/game-detail/${gameDetail?.address}`);
+          }}
+        >
+          Chat
+        </ForgeButton>
+
         {gameDetail?.stage === "inner" &&
           user?.address === gameDetail?.user?.address && (
             <ForgeButton
