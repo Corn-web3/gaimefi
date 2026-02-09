@@ -61,20 +61,6 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 *   **Animation**: GSAP, LibPAG
 *   **Editor**: MDXEditor
 
----
-
-## 📂 System Architecture
-
-```mermaid
-graph TD
-    User[User] -->|Auth| Privy[Privy SDK]
-    User -->|Trade| UI[React 19 Frontend]
-    UI -->|State| Zustand[Zustand Store]
-    UI -->|Read/Write| Wagmi[Wagmi/Viem Hooks]
-    Wagmi -->|RPC| Base[Base Network]
-    UI -->|Data| Indexer[Alchemy/Custom Indexer]
-    UI -->|Interact| AI[AI Agent Service (Eliza/Dify)]
-```
 
 ---
 
