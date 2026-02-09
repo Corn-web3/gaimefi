@@ -26,7 +26,7 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 ### 💎 Fair Launch & DeFi Mechanics
 *   **Bonding Curve Tokenomics**: Implemented a transparent, math-verified bonding curve for instant liquidity and fair distribution, eliminating rug-pull risks.
 *   **Real-Time Trading Engine**: High-frequency data updates using `klinecharts` and WebSocket feeds, delivering a CEX-like trading experience on-chain.
-*   **Cross-Chain Compatibility**: Seamlessly supports **Base (EVM)** and **Solana**, managed via unified abstraction layers.
+*   **Cross-Chain Compatibility**: Seamlessly supports **Base (EVM)**, managed via unified abstraction layers.
 
 ### 🤖 AI Agent Integration ("The Awakening")
 *   **Autonomous Agents**: Integrated **Eliza** and **Dify** frameworks to create "living" game characters.
@@ -52,7 +52,6 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 
 ### Web3 Integration
 *   **EVM**: Wagmi v2, Viem, RainbowKit, Ethers.js v6
-*   **Solana**: @solana/web3.js, Wallet Adapter
 *   **Auth**: Privy SDK
 *   **Data Indexing**: Alchemy SDK, The Graph (Integration ready)
 
@@ -73,7 +72,6 @@ graph TD
     UI -->|State| Zustand[Zustand Store]
     UI -->|Read/Write| Wagmi[Wagmi/Viem Hooks]
     Wagmi -->|RPC| Base[Base Network]
-    Wagmi -->|RPC| Solana[Solana Network]
     UI -->|Data| Indexer[Alchemy/Custom Indexer]
     UI -->|Interact| AI[AI Agent Service (Eliza/Dify)]
 ```
@@ -118,7 +116,7 @@ graph TD
 
 I am a **Senior Web3 Frontend Engineer** with a passion for building high-performance, user-centric decentralized applications. I specialize in bridging the gap between complex blockchain logic and intuitive user experiences.
 
-*   **Expertise**: React, TypeScript, EVM/Solana, DeFi Protocols, AI Agents.
+*   **Expertise**: React, TypeScript, EVM, DeFi Protocols, AI Agents.
 
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ujcxiigmcjx@gmail.com)
 
