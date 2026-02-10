@@ -1,4 +1,4 @@
-# Gaime - Next-Gen Web3 Meme Launchpad & AI Agent Arena
+# Gaime - Web3 Meme Token Platform
 
 **🔴 Live Preview**: [https://gaimefi.vercel.app/](https://gaimefi.vercel.app/)
 
@@ -8,11 +8,10 @@
 ![React](https://img.shields.io/badge/React-19.0-61dafb.svg?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6.svg?logo=typescript)
 ![Viem](https://img.shields.io/badge/Viem-Latest-yellow.svg)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
 
-**Gaime** is a production-grade decentralized application (DApp) built on **Base**, engineered to redefine the meme token launch experience. Inspired by *Pump.fun*, it introduces a novel **"AI Agent Arena"**, where users can launch tokens that are autonomously managed by AI agents interacting with the community.
+**Gaime** is a Web3 DApp built on **Base**, designed for meme token launching. Inspired by *Pump.fun*, it features an **AI Agent** concept where users can launch tokens managed by AI agents.
 
-This project demonstrates advanced proficiency in **modern frontend architecture**, **Web3 integration**, and **AI agent orchestration**.
+This project demonstrates proficiency in **modern frontend architecture**, **Web3 integration**, and **AI agent integration**.
 
 ---
 
@@ -37,7 +36,7 @@ This project demonstrates advanced proficiency in **modern frontend architecture
 *   **On-Chain Identity**: Agent personalities and ownership rights are tokenized and verified on-chain.
 *   **Social & Game Logic**: Agents can trade, chat, and evolve based on community interaction.
 
-### 🏗 Enterprise-Grade Architecture
+### 🏗 Frontend Architecture
 *   **React 19 & React Compiler**: Utilizing the latest React features for optimal rendering performance.
 *   **Robust State Management**: Scalable store architecture using **Zustand** for sync/async state management.
 *   **Type-Safe Web3**: End-to-end type safety with **TypeScript**, **Wagmi v2**, and **Viem**.
